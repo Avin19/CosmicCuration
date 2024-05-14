@@ -10,5 +10,5 @@ Space Ship Game
 
 ### Plant UML 
 
-[!ScreenShot](Assets/include.png)
+![ScreenShot](include.png)
 
