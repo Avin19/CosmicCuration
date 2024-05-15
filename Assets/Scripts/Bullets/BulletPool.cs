@@ -50,11 +50,12 @@ namespace CosmicCuration.Bullets
             pooledBullet pooledBullet = pooledBullets.Find(item => item.bullet.Equals(returnbullet));
             pooledBullet.isUsed = false;
         }
-        public class pooledBullet
-        {
-            public BulletController bullet;
-            public bool isUsed;
 
-        }
+    }
+    public class pooledBullet
+    {
+        public BulletController bullet;
+        public bool isUsed;
+
     }
 }
