@@ -1,0 +1,13 @@
+@startuml
+class GameService {
+    + GetPlayerService() : PlayerService
+    + GetEnemyService() : EnemyService
+    + GetPowerUpService() : PowerUpService
+    + GetVFXService() : VFXService
+    + GetSoundService() : SoundService
+    + GetUIService() : UIView
+}
+class "GenericMonoSingleton`1"<T> {
+}
+"GenericMonoSingleton`1" "<GameService>" <|-- GameService
+@enduml

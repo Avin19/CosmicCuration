@@ -1,0 +1,5 @@
+@startuml
+interface IDamageable {
+    + TakeDamage(damageToTake:int) : void
+}
+@enduml

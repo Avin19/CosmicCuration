@@ -1,0 +1,8 @@
+@startuml
+class Shield {
+    + Shield(powerUpData:PowerUpData)
+    + <<override>> Activate() : void
+    + <<override>> Deactivate() : void
+}
+PowerUpController <|-- Shield
+@enduml

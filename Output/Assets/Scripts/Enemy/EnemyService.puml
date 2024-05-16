@@ -1,0 +1,13 @@
+@startuml
+class EnemyService {
+    + EnemyService(enemyPrefab:EnemyView, enemyScriptableObject:EnemyScriptableObject)
+    + Update() : void
+    + SetEnemySpawning(setActive:bool) : void
+}
+enum EnemyOrientation {
+    Up,
+    Down,
+    Left,
+    Right,
+}
+@enduml

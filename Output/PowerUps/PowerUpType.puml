@@ -1,0 +1,7 @@
+@startuml
+enum PowerUpType {
+    Shield,
+    RapidFire,
+    DoubleTurret,
+}
+@enduml

@@ -1,0 +1,6 @@
+@startuml
+struct Sounds {
+}
+Sounds --> "soundType" SoundType
+Sounds --> "audio" AudioClip
+@enduml

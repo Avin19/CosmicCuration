@@ -1,0 +1,6 @@
+@startuml
+interface IBullet {
+    + UpdateBulletMotion() : void
+    + OnBulletEnteredTrigger(collidedObject:GameObject) : void
+}
+@enduml

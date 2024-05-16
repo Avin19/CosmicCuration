@@ -1,0 +1,6 @@
+@startuml
+class VFXService {
+    + VFXService(vfxScriptableObject:VFXScriptableObject)
+    + PlayVFXAtPosition(type:VFXType, spawnPosition:Vector2) : void
+}
+@enduml

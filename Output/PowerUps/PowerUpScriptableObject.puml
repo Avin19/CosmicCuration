@@ -1,0 +1,14 @@
+@startuml
+class PowerUpScriptableObject {
+    + spawnRate : float
+}
+struct PowerUpData {
+    + activeDuration : float
+}
+class "List`1"<T> {
+}
+ScriptableObject <|-- PowerUpScriptableObject
+PowerUpScriptableObject --> "powerUpData<PowerUpData>" "List`1"
+PowerUpData --> "powerUpType" PowerUpType
+PowerUpData --> "powerUpPrefab" PowerUpView
+@enduml

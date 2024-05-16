@@ -1,0 +1,253 @@
+@startuml
+class GameService {
+    + GetPlayerService() : PlayerService
+    + GetEnemyService() : EnemyService
+    + GetPowerUpService() : PowerUpService
+    + GetVFXService() : VFXService
+    + GetSoundService() : SoundService
+    + GetUIService() : UIView
+}
+class "GenericMonoSingleton`1"<T> {
+}
+"GenericMonoSingleton`1" "<GameService>" <|-- GameService
+interface IDamageable {
+    + TakeDamage(damageToTake:int) : void
+}
+struct Sounds {
+}
+Sounds --> "soundType" SoundType
+Sounds --> "audio" AudioClip
+class SoundScriptableObject {
+}
+ScriptableObject <|-- SoundScriptableObject
+class SoundService {
+    + SoundService(soundScriptableObject:SoundScriptableObject, audioEffectSource:AudioSource, bgMusicSource:AudioSource)
+    + PlaySoundEffects(soundType:SoundType, loopSound:bool) : void
+}
+enum SoundType {
+    BackgroundMusic,
+    BulletHit,
+    EnemyDeath,
+    PlayerDeath,
+    PlayerBullet,
+}
+class BulletController {
+    + BulletController(bulletViewPrefab:BulletView, bulletScriptableObject:BulletScriptableObject)
+    + ConfigureBullet(spawnTransform:Transform) : void
+    + UpdateBulletMotion() : void
+    + OnBulletEnteredTrigger(collidedGameObject:GameObject) : void
+}
+IBullet <|-- BulletController
+class BulletPool {
+    + BulletPool(bulletView:BulletView, bulletScriptableObject:BulletScriptableObject)
+    + GetBullet() : BulletController
+}
+class pooledBullet {
+    + isUsed : bool
+}
+BulletPool +-- pooledBullet
+pooledBullet --> "bullet" BulletController
+class BulletScriptableObject {
+    + speed : float
+    + damage : int
+}
+ScriptableObject <|-- BulletScriptableObject
+class BulletView {
+    + SetController(bulletController:BulletController) : void
+}
+MonoBehaviour <|-- BulletView
+interface IBullet {
+    + UpdateBulletMotion() : void
+    + OnBulletEnteredTrigger(collidedObject:GameObject) : void
+}
+class EnemyController {
+    + EnemyController(enemyPrefab:EnemyView, enemyData:EnemyData)
+    + Configure(positionToSet:Vector3, enemyOrientation:EnemyOrientation) : void
+    + TakeDamage(damageToTake:int) : void
+    + UpdateMotion() : void
+    + OnEnemyCollided(collidedGameObject:GameObject) : void
+}
+enum EnemyState {
+    Moving,
+    Rotating,
+}
+EnemyController +-- EnemyState
+class EnemyScriptableObject {
+    + spawnDistance : float
+    + initialSpawnRate : float
+    + minimumSpawnRate : float
+    + difficultyDelta : float
+}
+struct EnemyData {
+    + maxHealth : int
+    + minimumSpeed : float
+    + maximumSpeed : float
+    + damageToInflict : int
+    + scoreToGrant : int
+    + movementDuration : float
+    + rotationSpeed : float
+    + rotationTolerance : float
+}
+ScriptableObject <|-- EnemyScriptableObject
+EnemyScriptableObject --> "enemyData" EnemyData
+class EnemyService {
+    + EnemyService(enemyPrefab:EnemyView, enemyScriptableObject:EnemyScriptableObject)
+    + Update() : void
+    + SetEnemySpawning(setActive:bool) : void
+}
+enum EnemyOrientation {
+    Up,
+    Down,
+    Left,
+    Right,
+}
+class EnemyView {
+    + SetController(enemyController:EnemyController) : void
+    + TakeDamage(damageToTake:int) : void
+}
+MonoBehaviour <|-- EnemyView
+IDamageable <|-- EnemyView
+class PlayerController {
+    + PlayerController(playerViewPrefab:PlayerView, playerScriptableObject:PlayerScriptableObject, bulletPool:BulletPool)
+    + HandlePlayerInput() : void
+    + SetShieldState(shieldStateToSet:ShieldState) : void
+    + ToggleDoubleTurret(doubleTurretActive:bool) : void
+    + ToggleRapidFire(rapidFireActive:bool) : void
+    + TakeDamage(damageToTake:int) : void
+    + GetPlayerPosition() : Vector3
+}
+enum ShieldState {
+    Activated,
+    Deactivated,
+}
+enum WeaponMode {
+    SingleCanon,
+    DoubleTurret,
+}
+enum ShootingState {
+    Firing,
+    NotFiring,
+}
+PlayerController +-- WeaponMode
+PlayerController +-- ShootingState
+class PlayerScriptableObject {
+    + maxHealth : int
+    + movementSpeed : float
+    + defaultFireRate : float
+    + rapidFireRate : float
+    + deathDelay : int
+}
+ScriptableObject <|-- PlayerScriptableObject
+class PlayerService {
+    + PlayerService(playerViewPrefab:PlayerView, playerScriptableObject:PlayerScriptableObject, bulletPrefab:BulletView, bulletScriptableObject:BulletScriptableObject)
+    + GetPlayerController() : PlayerController
+    + GetPlayerPosition() : Vector3
+}
+class PlayerView {
+    + SetController(playerController:PlayerController) : void
+    + TakeDamage(damageToTake:int) : void
+}
+MonoBehaviour <|-- PlayerView
+IDamageable <|-- PlayerView
+PlayerView --> "canonTransform" Transform
+PlayerView --> "turretTransform1" Transform
+PlayerView --> "turretTransform2" Transform
+interface IPowerUp {
+    + Activate() : void
+    + Deactivate() : void
+}
+class PowerUpController {
+    + PowerUpController(powerUpData:PowerUpData)
+    + Configure(spawnPosition:Vector2) : void
+    + <<async>> StartTimer() : void
+    + PowerUpTriggerEntered(collidedObject:GameObject) : void
+    + <<virtual>> Activate() : void
+    + <<virtual>> Deactivate() : void
+}
+IPowerUp <|-- PowerUpController
+class PowerUpScriptableObject {
+    + spawnRate : float
+}
+struct PowerUpData {
+    + activeDuration : float
+}
+class "List`1"<T> {
+}
+ScriptableObject <|-- PowerUpScriptableObject
+PowerUpScriptableObject --> "powerUpData<PowerUpData>" "List`1"
+PowerUpData --> "powerUpType" PowerUpType
+PowerUpData --> "powerUpPrefab" PowerUpView
+class PowerUpService {
+    + PowerUpService(powerUpScriptableObject:PowerUpScriptableObject)
+    + Update() : void
+    + SetPowerUpSpawning(setSpawningActive:bool) : void
+}
+enum PowerUpType {
+    Shield,
+    RapidFire,
+    DoubleTurret,
+}
+class PowerUpView {
+    + SetController(controller:PowerUpController) : void
+}
+MonoBehaviour <|-- PowerUpView
+class UIView {
+    + IncrementScore(scoreToIncrement:int) : void
+    + UpdateHealthUI(healthToDisplay:int) : void
+    + EnableGameOverUI() : void
+}
+MonoBehaviour <|-- UIView
+class "GenericMonoSingleton`1"<T> {
+    + {static} Instance : T <<get>>
+}
+MonoBehaviour <|-- "GenericMonoSingleton`1"
+class ScreenWrapperView {
+}
+MonoBehaviour <|-- ScreenWrapperView
+class VFXController {
+    + VFXController(vfxPrefab:VFXView)
+    + Configure(spawnPosition:Vector2) : void
+}
+class VFXScriptableObject {
+}
+class VFXData {
+}
+class "List`1"<T> {
+}
+ScriptableObject <|-- VFXScriptableObject
+VFXScriptableObject --> "vfxData<VFXData>" "List`1"
+VFXData --> "type" VFXType
+VFXData --> "prefab" VFXView
+class VFXService {
+    + VFXService(vfxScriptableObject:VFXScriptableObject)
+    + PlayVFXAtPosition(type:VFXType, spawnPosition:Vector2) : void
+}
+enum VFXType {
+    PlayerExplosion,
+    EnemyExplosion,
+    BulletHitExplosion,
+}
+class VFXView {
+    + SetController(controllerToSet:VFXController) : void
+    + ConfigureAndPlay(positionToSet:Vector2) : void
+}
+MonoBehaviour <|-- VFXView
+class DoubleTurret {
+    + DoubleTurret(powerUpData:PowerUpData)
+    + <<override>> Activate() : void
+    + <<override>> Deactivate() : void
+}
+PowerUpController <|-- DoubleTurret
+class RapidFire {
+    + RapidFire(powerUpData:PowerUpData)
+    + <<override>> Activate() : void
+    + <<override>> Deactivate() : void
+}
+PowerUpController <|-- RapidFire
+class Shield {
+    + Shield(powerUpData:PowerUpData)
+    + <<override>> Activate() : void
+    + <<override>> Deactivate() : void
+}
+PowerUpController <|-- Shield
+@enduml

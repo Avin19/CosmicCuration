@@ -1,0 +1,9 @@
+@startuml
+class BulletController {
+    + BulletController(bulletViewPrefab:BulletView, bulletScriptableObject:BulletScriptableObject)
+    + ConfigureBullet(spawnTransform:Transform) : void
+    + UpdateBulletMotion() : void
+    + OnBulletEnteredTrigger(collidedGameObject:GameObject) : void
+}
+IBullet <|-- BulletController
+@enduml

@@ -1,0 +1,8 @@
+@startuml
+class DoubleTurret {
+    + DoubleTurret(powerUpData:PowerUpData)
+    + <<override>> Activate() : void
+    + <<override>> Deactivate() : void
+}
+PowerUpController <|-- DoubleTurret
+@enduml

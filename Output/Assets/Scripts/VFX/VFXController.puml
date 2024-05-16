@@ -1,0 +1,6 @@
+@startuml
+class VFXController {
+    + VFXController(vfxPrefab:VFXView)
+    + Configure(spawnPosition:Vector2) : void
+}
+@enduml

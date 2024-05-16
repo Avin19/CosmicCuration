@@ -1,0 +1,8 @@
+@startuml
+class RapidFire {
+    + RapidFire(powerUpData:PowerUpData)
+    + <<override>> Activate() : void
+    + <<override>> Deactivate() : void
+}
+PowerUpController <|-- RapidFire
+@enduml

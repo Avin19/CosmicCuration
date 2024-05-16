@@ -1,0 +1,10 @@
+@startuml
+class PlayerScriptableObject {
+    + maxHealth : int
+    + movementSpeed : float
+    + defaultFireRate : float
+    + rapidFireRate : float
+    + deathDelay : int
+}
+ScriptableObject <|-- PlayerScriptableObject
+@enduml

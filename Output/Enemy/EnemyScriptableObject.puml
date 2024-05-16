@@ -1,0 +1,20 @@
+@startuml
+class EnemyScriptableObject {
+    + spawnDistance : float
+    + initialSpawnRate : float
+    + minimumSpawnRate : float
+    + difficultyDelta : float
+}
+struct EnemyData {
+    + maxHealth : int
+    + minimumSpeed : float
+    + maximumSpeed : float
+    + damageToInflict : int
+    + scoreToGrant : int
+    + movementDuration : float
+    + rotationSpeed : float
+    + rotationTolerance : float
+}
+ScriptableObject <|-- EnemyScriptableObject
+EnemyScriptableObject --> "enemyData" EnemyData
+@enduml

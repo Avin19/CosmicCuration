@@ -1,0 +1,7 @@
+@startuml
+class BulletScriptableObject {
+    + speed : float
+    + damage : int
+}
+ScriptableObject <|-- BulletScriptableObject
+@enduml

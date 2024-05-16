@@ -1,0 +1,11 @@
+@startuml
+class PowerUpController {
+    + PowerUpController(powerUpData:PowerUpData)
+    + Configure(spawnPosition:Vector2) : void
+    + <<async>> StartTimer() : void
+    + PowerUpTriggerEntered(collidedObject:GameObject) : void
+    + <<virtual>> Activate() : void
+    + <<virtual>> Deactivate() : void
+}
+IPowerUp <|-- PowerUpController
+@enduml

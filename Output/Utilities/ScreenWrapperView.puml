@@ -1,0 +1,5 @@
+@startuml
+class ScreenWrapperView {
+}
+MonoBehaviour <|-- ScreenWrapperView
+@enduml

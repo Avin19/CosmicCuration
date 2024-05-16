@@ -1,0 +1,8 @@
+@startuml
+class UIView {
+    + IncrementScore(scoreToIncrement:int) : void
+    + UpdateHealthUI(healthToDisplay:int) : void
+    + EnableGameOverUI() : void
+}
+MonoBehaviour <|-- UIView
+@enduml

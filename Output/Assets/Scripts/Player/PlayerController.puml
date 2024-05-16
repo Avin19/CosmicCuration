@@ -1,0 +1,25 @@
+@startuml
+class PlayerController {
+    + PlayerController(playerViewPrefab:PlayerView, playerScriptableObject:PlayerScriptableObject, bulletPrefab:BulletView, bulletScriptableObject:BulletScriptableObject)
+    + HandlePlayerInput() : void
+    + SetShieldState(shieldStateToSet:ShieldState) : void
+    + ToggleDoubleTurret(doubleTurretActive:bool) : void
+    + ToggleRapidFire(rapidFireActive:bool) : void
+    + TakeDamage(damageToTake:int) : void
+    + GetPlayerPosition() : Vector3
+}
+enum ShieldState {
+    Activated,
+    Deactivated,
+}
+enum WeaponMode {
+    SingleCanon,
+    DoubleTurret,
+}
+enum ShootingState {
+    Firing,
+    NotFiring,
+}
+PlayerController +-- WeaponMode
+PlayerController +-- ShootingState
+@enduml

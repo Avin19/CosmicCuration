@@ -1,0 +1,6 @@
+@startuml
+class BulletView {
+    + SetController(bulletController:BulletController) : void
+}
+MonoBehaviour <|-- BulletView
+@enduml

@@ -1,0 +1,11 @@
+@startuml
+class PlayerView {
+    + SetController(playerController:PlayerController) : void
+    + TakeDamage(damageToTake:int) : void
+}
+MonoBehaviour <|-- PlayerView
+IDamageable <|-- PlayerView
+PlayerView --> "canonTransform" Transform
+PlayerView --> "turretTransform1" Transform
+PlayerView --> "turretTransform2" Transform
+@enduml

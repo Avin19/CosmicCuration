@@ -1,0 +1,14 @@
+@startuml
+class EnemyController {
+    + EnemyController(enemyPrefab:EnemyView, enemyData:EnemyData)
+    + Configure(positionToSet:Vector3, enemyOrientation:EnemyOrientation) : void
+    + TakeDamage(damageToTake:int) : void
+    + UpdateMotion() : void
+    + OnEnemyCollided(collidedGameObject:GameObject) : void
+}
+enum EnemyState {
+    Moving,
+    Rotating,
+}
+EnemyController +-- EnemyState
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+class PlayerService {
+    + PlayerService(playerViewPrefab:PlayerView, playerScriptableObject:PlayerScriptableObject, bulletPrefab:BulletView, bulletScriptableObject:BulletScriptableObject)
+    + GetPlayerController() : PlayerController
+    + GetPlayerPosition() : Vector3
+}
+@enduml

@@ -1,0 +1,6 @@
+@startuml
+interface IPowerUp {
+    + Activate() : void
+    + Deactivate() : void
+}
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+enum VFXType {
+    PlayerExplosion,
+    EnemyExplosion,
+    BulletHitExplosion,
+}
+@enduml

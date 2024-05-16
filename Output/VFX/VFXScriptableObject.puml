@@ -1,0 +1,12 @@
+@startuml
+class VFXScriptableObject {
+}
+class VFXData {
+}
+class "List`1"<T> {
+}
+ScriptableObject <|-- VFXScriptableObject
+VFXScriptableObject --> "vfxData<VFXData>" "List`1"
+VFXData --> "type" VFXType
+VFXData --> "prefab" VFXView
+@enduml

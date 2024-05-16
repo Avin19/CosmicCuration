@@ -1,0 +1,10 @@
+@startuml
+class BulletPool {
+    + BulletPool(bulletView:BulletView, bulletScriptableObject:BulletScriptableObject)
+}
+class pooledBullet {
+    + isUsed : bool
+}
+BulletPool +-- pooledBullet
+pooledBullet --> "bullet" BulletController
+@enduml

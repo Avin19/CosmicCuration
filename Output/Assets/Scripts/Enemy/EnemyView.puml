@@ -1,0 +1,8 @@
+@startuml
+class EnemyView {
+    + SetController(enemyController:EnemyController) : void
+    + TakeDamage(damageToTake:int) : void
+}
+MonoBehaviour <|-- EnemyView
+IDamageable <|-- EnemyView
+@enduml

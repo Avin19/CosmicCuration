@@ -1,0 +1,7 @@
+@startuml
+class PowerUpService {
+    + PowerUpService(powerUpScriptableObject:PowerUpScriptableObject)
+    + Update() : void
+    + SetPowerUpSpawning(setSpawningActive:bool) : void
+}
+@enduml

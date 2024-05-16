@@ -1,0 +1,7 @@
+@startuml
+class VFXView {
+    + SetController(controllerToSet:VFXController) : void
+    + ConfigureAndPlay(positionToSet:Vector2) : void
+}
+MonoBehaviour <|-- VFXView
+@enduml
